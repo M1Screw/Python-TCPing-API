@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 import gevent.pywsgi
 
 app = Flask(__name__)
-app.config['PORT'] = '8080'
+app.config['PORT'] = 8080
 app.config['TIMEOUT'] = 1  # In seconds
 app.config['VERSION'] = 1
 

@@ -1,5 +1,6 @@
 import socket
 from flask import Flask, request, jsonify
+import gevent.pywsgi
 
 app = Flask(__name__)
 app.config['PORT'] = '8080'
@@ -29,4 +30,5 @@ def page_not_found(e):
     return "<p>The resource could not be found.</p>", 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=app.config['PORT'])
+    app_server = gevent.pywsgi.WSGIServer(('0.0.0.0', app.config['PORT']), app)
+    app_server.serve_forever()

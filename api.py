@@ -10,14 +10,14 @@ app.config['VERSION'] = 1
 def tcping():
     request_parameters = request.args
     ip = request_parameters.get('ip')
-    port = int(request_parameters.get('port'))
+    port = request_parameters.get('port')
     if ip is None:
         return jsonify({"status": "error", "message": "Missing ip parameter"})
     if port is None:
         return jsonify({"status": "error", "message": "Missing port parameter"})
     socks = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socks.settimeout(app.config['TIMEOUT'])
-    result = socks.connect_ex((ip, port))
+    result = socks.connect_ex((ip, int(port)))
     socks.close()
     if result == 0:
         return jsonify({"status": "true"})
